@@ -1,0 +1,57 @@
+.card {
+  margin: 0 7.5px 15px;
+  align-items: center;
+  padding: 0;
+  border: 1px solid gray;
+}
+
+.image {
+  width: 100%;
+  height: 95%;
+  max-height: 300px;
+  background-size: cover;
+  background-position: center;
+  margin-bottom: 5px;
+}
+
+.card_body {
+  width: 100%;
+  height: 5%;
+  display: flex;
+  font-size: 18px;
+  justify-content: space-between;
+  padding-left: 10px;
+  padding-right: 0;
+}
+
+.name {
+  width: 80%;
+  margin-bottom: 15px;
+}
+
+.price {
+  width: 20%;
+  margin-left: auto;
+}
+
+.card:hover {
+  border: 1px solid black;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+}
+
+.custom_button {
+  position: absolute;
+  top: 65%;
+  opacity: 0.7;
+  width: 80%;
+  display: none;
+}
+
+.collection_item:hover .image {
+  opacity: 0.8;
+}
+
+.collection_item:hover .custom_button {
+  opacity: 0.85;
+  display: flex;
+}

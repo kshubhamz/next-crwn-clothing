@@ -1,0 +1,32 @@
+.profile {
+  text-align: left;
+  margin: auto;
+}
+
+.row {
+  margin-bottom: 10px;
+}
+
+.data {
+  padding-left: 20px;
+  padding-right: 20px;
+  border: 0.2px dotted gray;
+}
+
+.bold {
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+@media only screen and (max-width: 992px) {
+  .profile {
+    width: 100%;
+  }
+}
+
+@media only screen and (min-width: 992px) {
+  .profile {
+    width: 50%;
+    margin-top: 5rem;
+  }
+}
