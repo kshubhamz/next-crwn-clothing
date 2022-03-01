@@ -10,7 +10,7 @@ import { CollectionItem } from "../collection-item/collection-item.component";
 import styles from "./collection.styles.module.css";
 
 const convertToTitleCase = (txt) =>
-  txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+  txt?.charAt(0).toUpperCase() + txt?.substr(1).toLowerCase();
 
 const _Collection = ({
   collection,

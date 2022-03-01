@@ -7,8 +7,8 @@ import { useState } from "react";
 import { CustomButton } from "../custom-button/custom-button.component";
 
 const _UpdateProfileComponent = ({ user, updateProfile, onReqFinish }) => {
-  const [name, setName] = useState(user.name);
-  const [email, setEmail] = useState(user.email);
+  const [name, setName] = useState(user?.name);
+  const [email, setEmail] = useState(user?.email);
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
 

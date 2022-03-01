@@ -22,7 +22,7 @@ function Home({ sections, getSections, isLoading }) {
           sections.map((section) => (
             <div
               key={section.id}
-              className={`col col-sm-12 ${
+              className={`col col-12 col-sm-12 ${
                 section.size === "large" ? "col-md-6" : "col-md-4"
               }`}
             >

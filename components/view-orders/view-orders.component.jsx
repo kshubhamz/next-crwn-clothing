@@ -57,7 +57,7 @@ const _ViewOrder = ({ order }) => {
 };
 
 const _ViewOrders = ({ user }) => {
-  const { ordersPlaced } = user;
+  const ordersPlaced = user?.ordersPlaced || [];
   const placedOrders = [...ordersPlaced];
   placedOrders.reverse();
 

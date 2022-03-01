@@ -12,7 +12,7 @@ const _ViewProfile = ({ user }) => {
             <span className={styles.bold}>Name </span>
           </td>
           <td className={styles.data}>
-            <span>{user.name}</span>
+            <span>{user?.name}</span>
           </td>
         </tr>
         <tr className={styles.row}>
@@ -20,7 +20,7 @@ const _ViewProfile = ({ user }) => {
             <span className={styles.bold}>Email </span>
           </td>
           <td className={styles.data}>
-            <span>{user.email}</span>
+            <span>{user?.email}</span>
           </td>
         </tr>
         <tr className={styles.row}>
@@ -28,7 +28,7 @@ const _ViewProfile = ({ user }) => {
             <span className={styles.bold}>Orders Placed </span>
           </td>
           <td className={styles.data}>
-            <span>{user.ordersPlaced.length}</span>
+            <span>{user?.ordersPlaced.length}</span>
           </td>
         </tr>
         <tr className={styles.row}>
@@ -36,7 +36,7 @@ const _ViewProfile = ({ user }) => {
             <span className={styles.bold}>Items in Cart </span>
           </td>
           <td className={styles.data}>
-            <span>{user.currentCartItems.length}</span>
+            <span>{user?.currentCartItems.length}</span>
           </td>
         </tr>
       </tbody>
