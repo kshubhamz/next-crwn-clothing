@@ -1,5 +1,8 @@
+import { environment } from "../../environment";
 import { useRequest } from "../../hooks/use-request";
 import { CartActions } from "./cart.types";
+
+const BASE_URL = `${environment.NEXT_PUBLIC_API}/users`;
 
 const _toggleCartHidden = () => ({
   type: CartActions.TOGGLE_CART_HIDDEN,
@@ -35,7 +38,7 @@ export const toggleCartHidden = () => (dispatch) => {
 };
 
 export const addToCartAsync = (user, item) => (dispatch) => {
-  const url = `http://localhost:4000/api/users/${user?.id}?update=update_cart`;
+  const url = `${BASE_URL}/${user?.id}?update=update_cart`;
   const performRequest = useRequest(url);
 
   dispatch(addToCart(item));
@@ -46,7 +49,7 @@ export const addToCartAsync = (user, item) => (dispatch) => {
 };
 
 export const removeFromCartAsync = (user, item) => (dispatch) => {
-  const url = `http://localhost:4000/api/users/${user?.id}?update=update_cart`;
+  const url = `${BASE_URL}/${user?.id}?update=update_cart`;
   const performRequest = useRequest(url);
 
   dispatch(removeFromCart(item));
@@ -57,7 +60,7 @@ export const removeFromCartAsync = (user, item) => (dispatch) => {
 };
 
 export const deleteFromCartAsync = (user, item) => (dispatch) => {
-  const url = `http://localhost:4000/api/users/${user?.id}?update=update_cart`;
+  const url = `${BASE_URL}/${user?.id}?update=update_cart`;
   const performRequest = useRequest(url);
 
   dispatch(deleteFromCart(item));

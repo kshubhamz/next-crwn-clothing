@@ -1,11 +1,10 @@
+import { environment } from "../../environment";
 import { useRequest } from "../../hooks/use-request";
 import { assignToCart } from "../cart/cart.actions";
 import { CurrentUserActions } from "./current-user.types";
 
-const FETCH_USER = "http://localhost:4000/api/auth/current-user";
-const LOGIN = "http://localhost:4000/api/auth/login";
-const REGISTER = "http://localhost:4000/api/auth/register";
-const LOGOUT = "http://localhost:4000/api/auth/logout";
+const AUTH_BASE = `${environment.NEXT_PUBLIC_API}/auth`;
+const USER_BASE = `${environment.NEXT_PUBLIC_API}/users`;
 
 const fetchUserStart = () => ({
   type: CurrentUserActions.FETCH_CURRENT_USER_START,
@@ -64,7 +63,7 @@ const registerError = (error) => ({
 });
 
 export const fetchCurrentUserAsync = () => (dispatch) => {
-  const performRequest = useRequest(FETCH_USER);
+  const performRequest = useRequest(`${AUTH_BASE}/current-user`);
   dispatch(fetchUserStart());
   performRequest("get")
     .then((data) => {
@@ -75,7 +74,7 @@ export const fetchCurrentUserAsync = () => (dispatch) => {
 };
 
 export const loginUserAsync = (formData) => (dispatch) => {
-  const performRequest = useRequest(LOGIN);
+  const performRequest = useRequest(`${AUTH_BASE}/login`);
   dispatch(loginStart());
   return new Promise((resolve, reject) => {
     performRequest("post", formData)
@@ -92,7 +91,7 @@ export const loginUserAsync = (formData) => (dispatch) => {
 };
 
 export const logoutUserAsync = () => (dispatch) => {
-  const performRequest = useRequest(LOGOUT);
+  const performRequest = useRequest(`${AUTH_BASE}/logout`);
   dispatch(logOutStart());
   return new Promise((resolve, reject) => {
     performRequest("post")
@@ -109,7 +108,7 @@ export const logoutUserAsync = () => (dispatch) => {
 };
 
 export const registerUserAsync = (formData) => (dispatch) => {
-  const performRequest = useRequest(REGISTER);
+  const performRequest = useRequest(`${AUTH_BASE}/register`);
   dispatch(registerStart());
   return new Promise((resolve, reject) => {
     performRequest("post", formData)
@@ -126,7 +125,7 @@ export const registerUserAsync = (formData) => (dispatch) => {
 };
 
 export const updateProfileAsync = (user, form) => (dispatch) => {
-  const url = `http://localhost:4000/api/users/${user?.id}?update=info`;
+  const url = `${USER_BASE}/${user?.id}?update=info`;
   const performRequest = useRequest(url);
 
   return new Promise((resolve, reject) => {
@@ -142,7 +141,7 @@ export const updateProfileAsync = (user, form) => (dispatch) => {
 };
 
 export const updatePasswordAsync = (user, form) => (dispatch) => {
-  const url = `http://localhost:4000/api/users/${user?.id}?update=update_password`;
+  const url = `${USER_BASE}/${user?.id}?update=update_password`;
   const performRequest = useRequest(url);
 
   return new Promise((resolve, reject) => {

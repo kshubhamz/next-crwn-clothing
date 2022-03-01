@@ -1,3 +1,4 @@
+import { environment } from "../../environment";
 import { useRequest } from "../../hooks/use-request";
 import { OrderAction } from "./order.types";
 
@@ -14,7 +15,7 @@ const placeOrderFailure = (err) => ({
 });
 
 export const placeOrderAsync = (token, cart) => (dispatch) => {
-  const performRequest = useRequest("http://localhost:4000/api/orders");
+  const performRequest = useRequest(`${environment.NEXT_PUBLIC_API}/orders`);
   dispatch(placeOrderStart());
 
   return new Promise((resolve, reject) => {

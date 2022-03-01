@@ -1,3 +1,4 @@
+import { environment } from "../../environment";
 import { useRequest } from "../../hooks/use-request";
 import { SectionActionTypes } from "./section.types";
 
@@ -16,7 +17,7 @@ const fetchSectionsFailure = (error) => ({
 });
 
 export const fetchSectionsAsync = () => (dispatch) => {
-  const performRequest = useRequest("http://localhost:4000/api/sections");
+  const performRequest = useRequest(`${environment.NEXT_PUBLIC_API}/sections`);
 
   dispatch(fetchSectionsStart());
 

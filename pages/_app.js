@@ -6,9 +6,9 @@ import { useStore } from "../redux/store";
 import "../styles/globals.css";
 import { Spinner } from "../components/spinner/spinner.component";
 import { HeaderComponent } from "../components/header/header.component";
-import { useRequest } from "../hooks/use-request";
-import { fetchUserSuccess } from "../redux/current-user/current-user.actions";
 import { buildClient } from "../api/build-client";
+import Head from "next/head";
+import { environment } from "../environment";
 
 function MyApp({ Component, pageProps, currentUser }) {
   const router = useRouter();
@@ -23,22 +23,26 @@ function MyApp({ Component, pageProps, currentUser }) {
   }, []);
 
   return (
-    <Provider store={store}>
-      <div className="container-fluid">
-        {showSpinner && <Spinner />}
-        <HeaderComponent currentUser={currentUser} />
-        <Component currentUser={currentUser} {...pageProps} />
-        <div id="modal-root"></div>
-      </div>
-    </Provider>
+    <>
+      <Head>
+        <title>CRWN Clothing</title>
+      </Head>
+      <Provider store={store}>
+        <div className="container-fluid">
+          {showSpinner && <Spinner />}
+          <HeaderComponent currentUser={currentUser} />
+          <Component currentUser={currentUser} {...pageProps} />
+          <div id="modal-root"></div>
+        </div>
+      </Provider>
+    </>
   );
 }
 
 MyApp.getInitialProps = async (appContext) => {
   const client = buildClient(appContext.ctx);
-  const { data } = await client.get(
-    "http://localhost:4000/api/auth/current-user"
-  );
+  const url = environment.NEXT_PUBLIC_API;
+  const { data } = await client.get(`${url}/auth/current-user`);
 
   let pageProps = {};
   if (appContext.Component.getInitialProps) {

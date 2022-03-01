@@ -1,13 +1,12 @@
 import { TextField } from "@mui/material";
 import { useState } from "react";
 import { connect } from "react-redux";
-import { createStructuredSelector } from "reselect";
 import { updatePasswordAsync } from "../../redux/current-user/current-user.actions";
 import { selectUser } from "../../redux/current-user/current-user.selector";
 import { CustomButton } from "../custom-button/custom-button.component";
 import styles from "./update-password.styles.module.css";
 
-const _UpdatePasswordComponent = ({ user, updatePassword }) => {
+const _UpdatePasswordComponent = ({ user, updatePassword, onReqFinish }) => {
   const [oldPassword, setOldPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [cnfNewPassword, setCnfNewPassword] = useState("");
@@ -19,12 +18,18 @@ const _UpdatePasswordComponent = ({ user, updatePassword }) => {
       setError("Password and Confirm Password not matching.");
       return;
     }
-
+    onReqFinish(true);
     setError(null);
     setSuccess(null);
     updatePassword(user, { oldPassword, newPassword })
-      .then((msg) => setSuccess(msg))
-      .catch((err) => setError(err));
+      .then((msg) => {
+        setSuccess(msg);
+        onReqFinish(false);
+      })
+      .catch((err) => {
+        setError(err);
+        onReqFinish(false);
+      });
   };
 
   return (
@@ -76,8 +81,9 @@ const _UpdatePasswordComponent = ({ user, updatePassword }) => {
   );
 };
 
-const mapStateToProps = createStructuredSelector({
-  user: selectUser,
+const mapStateToProps = (state, ownProps) => ({
+  user: selectUser(state),
+  onReqFinish: ownProps["onReqFinish"],
 });
 
 const mapDispatchToProps = (dispatch) => ({

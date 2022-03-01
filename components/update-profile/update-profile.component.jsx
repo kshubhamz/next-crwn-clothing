@@ -1,5 +1,4 @@
 import styles from "./update-profile.styles.module.css";
-import { createStructuredSelector } from "reselect";
 import { selectUser } from "../../redux/current-user/current-user.selector";
 import { updateProfileAsync } from "../../redux/current-user/current-user.actions";
 import { connect } from "react-redux";
@@ -7,7 +6,7 @@ import { TextField } from "@mui/material";
 import { useState } from "react";
 import { CustomButton } from "../custom-button/custom-button.component";
 
-const _UpdateProfileComponent = ({ user, updateProfile }) => {
+const _UpdateProfileComponent = ({ user, updateProfile, onReqFinish }) => {
   const [name, setName] = useState(user.name);
   const [email, setEmail] = useState(user.email);
   const [error, setError] = useState(null);
@@ -16,9 +15,16 @@ const _UpdateProfileComponent = ({ user, updateProfile }) => {
   const handleUpdateProfile = () => {
     setError(null);
     setSuccess(null);
+    onReqFinish(true);
     updateProfile(user, { name, email })
-      .then((msg) => setSuccess(msg))
-      .catch((err) => setError(err));
+      .then((msg) => {
+        setSuccess(msg);
+        onReqFinish(false);
+      })
+      .catch((err) => {
+        setError(err);
+        onReqFinish(false);
+      });
   };
 
   return (
@@ -58,8 +64,9 @@ const _UpdateProfileComponent = ({ user, updateProfile }) => {
   );
 };
 
-const mapStateToProps = createStructuredSelector({
-  user: selectUser,
+const mapStateToProps = (state, ownProps) => ({
+  user: selectUser(state),
+  onReqFinish: ownProps["onReqFinish"],
 });
 
 const mapDispatchToProps = (dispatch) => ({

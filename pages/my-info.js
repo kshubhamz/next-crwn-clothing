@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import { Tabs, Tab } from "@mui/material";
+import { Tabs, Tab, LinearProgress } from "@mui/material";
 import { ViewProfile } from "../components/view-profile/view-profile.component";
 import { ViewOrders } from "../components/view-orders/view-orders.component";
 import { UpdateProfileComponent } from "../components/update-profile/update-profile.component";
@@ -32,6 +32,7 @@ function a11yProps(index) {
 const MyInfo = ({ currentUser, view }) => {
   const router = useRouter();
   const [value, setValue] = useState(view);
+  const [progressBar, setProgressBar] = useState(false);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -45,6 +46,7 @@ const MyInfo = ({ currentUser, view }) => {
 
   return (
     <>
+      {progressBar && <LinearProgress color="secondary" />}
       <Tabs
         value={value}
         onChange={handleChange}
@@ -72,10 +74,10 @@ const MyInfo = ({ currentUser, view }) => {
         <ViewOrders />
       </TabPanel>
       <TabPanel value={value} index={"update_profile"}>
-        <UpdateProfileComponent />
+        <UpdateProfileComponent onReqFinish={setProgressBar} />
       </TabPanel>
       <TabPanel value={value} index={"update_password"}>
-        <UpdatePasswordComponent />
+        <UpdatePasswordComponent onReqFinish={setProgressBar} />
       </TabPanel>
     </>
   );

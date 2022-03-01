@@ -1,3 +1,4 @@
+import { environment } from "../../environment";
 import { useRequest } from "../../hooks/use-request";
 import { CollectionsAction } from "./collections.types";
 
@@ -16,7 +17,7 @@ const fetchCollectionFailure = (err) => ({
 });
 
 export const fetchCollectionAsync = () => (dispatch) => {
-  const url = "http://localhost:4000/api/products";
+  const url = `${environment.NEXT_PUBLIC_API}/products`;
   const performRequest = useRequest(url);
 
   dispatch(fetchCollectionStart());
